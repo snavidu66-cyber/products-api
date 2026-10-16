@@ -1,3 +1,4 @@
+
 package uk.ac.westminster.products_api;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,24 +15,19 @@ public class ProductController {
 
     @Autowired
     private ProductService productService;
-    @GetMapping("/products")
+
+    @GetMapping
     public List<Product> getAllProducts() {
         return productService.getAllProducts();
     }
-}
 
     @GetMapping("/{id}")
     public Product getById(@PathVariable Long id) {
         return new Product(id, "Laptop", 999.99);
     }
-}
-public List<Product> findByName(String name) {
-    return products.stream()
-            .filter(p -> p.getName().contains(name))
-            .toList();
-}
-// ---- in ProductController.java ----
-@GetMapping("/products/search")
-public List<Product> search(@RequestParam String name) {
-    return productService.findByName(name);
+
+    @GetMapping("/search/{name}")
+    public List<Product> findByName(@PathVariable String name) {
+        return productService.findByName(name);
+    }
 }
